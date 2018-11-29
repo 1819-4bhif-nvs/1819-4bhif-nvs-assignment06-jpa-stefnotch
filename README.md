@@ -1,6 +1,31 @@
-# 1819_4bhif_nvs_assignment06_jpa
-Übungsbeispiel mit individueller Aufgabenstellung zum Thema JPA
+# Stefan Brandmair
 
+## Starting derby
+
+```
+mkdir db
+cd db
+
+D:\opt\derby\bin\startNetworkServer -noSecurityManager
+```
+
+
+
+## Starting h2
+
+
+
+```
+mkdir db
+cd db
+
+???
+```
+
+
+
+
+Übungsbeispiel mit individueller Aufgabenstellung zum Thema JPA
 
 # Aufgabenstellung
 
