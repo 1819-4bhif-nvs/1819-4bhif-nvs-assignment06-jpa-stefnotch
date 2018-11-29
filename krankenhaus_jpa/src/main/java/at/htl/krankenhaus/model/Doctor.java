@@ -17,6 +17,9 @@ public class Doctor {
         this.salary = salary;
     }
 
+    public Doctor() {
+    }
+
     public Long getId() {
         return id;
     }
