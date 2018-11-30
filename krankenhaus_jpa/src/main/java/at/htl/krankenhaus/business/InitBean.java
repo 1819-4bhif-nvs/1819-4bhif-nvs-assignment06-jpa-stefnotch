@@ -1,5 +1,7 @@
 package at.htl.krankenhaus.business;
 
+import at.htl.krankenhaus.model.Doctor;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -18,5 +20,15 @@ public class InitBean {
 
     @PostConstruct
     private void init() {
+    }
+
+    public Long putDoctor(Doctor doctor) {
+        em.persist(doctor);
+
+        return doctor.getId();
+    }
+
+    public void removeDoctor(Doctor d) {
+        em.remove(em.contains(d) ? d : em.merge(d));
     }
 }

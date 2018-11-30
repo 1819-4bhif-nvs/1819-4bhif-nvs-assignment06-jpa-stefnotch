@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class Treatment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

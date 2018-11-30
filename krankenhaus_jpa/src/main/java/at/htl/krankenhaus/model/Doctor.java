@@ -1,11 +1,12 @@
 package at.htl.krankenhaus.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Doctor.findAll", query = "select d from Doctor d"),
+        @NamedQuery(name = "Doctor.findByName", query = "select d from Doctor d where d.name = :name")
+})
 public class Doctor {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
