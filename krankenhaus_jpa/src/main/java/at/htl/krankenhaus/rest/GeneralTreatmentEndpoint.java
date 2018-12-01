@@ -1,14 +1,18 @@
 package at.htl.krankenhaus.rest;
 
+import at.htl.krankenhaus.business.InitBean;
 import at.htl.krankenhaus.model.DrugTreatment;
 import at.htl.krankenhaus.model.GeneralTreatment;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.*;
 
 @Path("generaltreatment")
 public class GeneralTreatmentEndpoint {
+    @Inject
+    InitBean initBean;
 
     @PersistenceContext
     EntityManager em;
@@ -20,16 +24,15 @@ public class GeneralTreatmentEndpoint {
     }
 
     @POST
-    public void putGeneralTreatment(GeneralTreatment generalTreatment) {
-        em.getTransaction().begin();
-        em.persist(generalTreatment);
-        em.getTransaction().commit();
+    public Long putGeneralTreatment(GeneralTreatment generalTreatment) {
+        return initBean.putTreatment(generalTreatment);
     }
 
-    @DELETE
-    public void deleteGeneralTreatment(GeneralTreatment generalTreatment) {
-        em.getTransaction().begin();
-        em.remove(generalTreatment);
-        em.getTransaction().commit();
+    @DELETE@Path("{id}")
+    public void deleteGeneralTreatment(@PathParam("id") long id) {
+        GeneralTreatment t = em.find(GeneralTreatment.class, id);
+        if(t != null) {
+            initBean.removeTreatment(t);
+        }
     }
 }

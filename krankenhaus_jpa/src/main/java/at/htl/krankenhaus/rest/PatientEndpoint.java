@@ -1,13 +1,18 @@
 package at.htl.krankenhaus.rest;
 
+import at.htl.krankenhaus.business.InitBean;
 import at.htl.krankenhaus.model.Patient;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.*;
 
 @Path("patient")
 public class PatientEndpoint {
+    @Inject
+    InitBean initBean;
+
     @PersistenceContext
     private EntityManager em;
     @GET
@@ -17,16 +22,16 @@ public class PatientEndpoint {
     }
 
     @POST
-    public void putPatient(Patient patient) {
-        em.getTransaction().begin();
-        em.persist(patient);
-        em.getTransaction().commit();
+    public Long putPatient(Patient patient) {
+        return initBean.putPatient(patient);
     }
 
     @DELETE
-    public void deletePatient(Patient patient) {
-        em.getTransaction().begin();
-        em.remove(patient);
-        em.getTransaction().commit();
+    @Path("{id}")
+    public void deletePatient(@PathParam("id") long id) {
+        Patient p = em.find(Patient.class, id);
+        if(p != null) {
+            initBean.removePatient(p);
+        }
     }
 }

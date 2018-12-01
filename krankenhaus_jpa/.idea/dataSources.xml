@@ -8,5 +8,11 @@
       <jdbc-driver>org.apache.derby.jdbc.ClientDriver</jdbc-driver>
       <jdbc-url>jdbc:derby://localhost:1527/db</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="test" uuid="254a4372-c473-4d2b-a79f-7c760a3c0b32">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1</jdbc-url>
+    </data-source>
   </component>
 </project>

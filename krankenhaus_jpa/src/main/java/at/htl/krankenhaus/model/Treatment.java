@@ -1,7 +1,7 @@
 package at.htl.krankenhaus.model;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
@@ -16,13 +16,13 @@ public abstract class Treatment {
     private Patient patient;
     private String outcome; // Doctors tend to write down quite a bunch of things
 
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     public Treatment() {
     }
 
-    public Treatment(String name, Doctor doctor, Patient patient, String outcome, LocalDateTime startDate, LocalDateTime endDate) {
+    public Treatment(String name, Doctor doctor, Patient patient, String outcome, LocalDate startDate, LocalDate endDate) {
         this.name = name;
         this.doctor = doctor;
         this.patient = patient;
@@ -67,19 +67,19 @@ public abstract class Treatment {
         this.outcome = outcome;
     }
 
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 }

@@ -1,35 +1,35 @@
 package at.htl.krankenhaus.model;
 
 import javax.persistence.Entity;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 public class DrugTreatment extends Treatment {
-    public String DrugName;
-    public double DosePerDay;
+    private String drugName;
+    private double dosePerDay;
 
-    public DrugTreatment(String name, Doctor doctor, Patient patient, String outcome, LocalDateTime startDate, LocalDateTime endDate, String drugName, double dosePerDay) {
+    public DrugTreatment(String name, Doctor doctor, Patient patient, String outcome, LocalDate startDate, LocalDate endDate, String drugName, double dosePerDay) {
         super(name, doctor, patient, outcome, startDate, endDate);
-        DrugName = drugName;
-        DosePerDay = dosePerDay;
+        this.drugName = drugName;
+        this.dosePerDay = dosePerDay;
     }
 
     public DrugTreatment() {
     }
 
     public String getDrugName() {
-        return DrugName;
+        return drugName;
     }
 
     public void setDrugName(String drugName) {
-        DrugName = drugName;
+        this.drugName = drugName;
     }
 
     public double getDosePerDay() {
-        return DosePerDay;
+        return dosePerDay;
     }
 
     public void setDosePerDay(double dosePerDay) {
-        DosePerDay = dosePerDay;
+        this.dosePerDay = dosePerDay;
     }
 }

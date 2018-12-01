@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -17,6 +18,7 @@ import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.core.Is.is;
 
 public class DoctorEndpointIT {
@@ -45,7 +47,7 @@ public class DoctorEndpointIT {
     }
 
     @Test
-    public void t02_getExistingDoctorById() {
+    public void t02_pugAndGetExistingDoctorById() {
         JsonObject doctorJson = Json.createObjectBuilder()
                 .add("name", "Sally Sunshine")
                 .add("salary", 45)
@@ -59,11 +61,15 @@ public class DoctorEndpointIT {
                 .path(id + "")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
+        JsonObject resultJson = response.readEntity(JsonObject.class);
+
         assertThat(response.getStatus(), is(200));
+        assertThat(resultJson.getString("name"), is("Sally Sunshine"));
+        assertThat(resultJson.getJsonNumber("salary").intValue(), is(45));
     }
 
     @Test
-    public void t03_getExistingDoctorByName() {
+    public void t03_putAndGetExistingDoctorByName() {
         // Add
         JsonObject doctorJson = Json.createObjectBuilder()
                 .add("name", "John Smith")
@@ -79,9 +85,12 @@ public class DoctorEndpointIT {
                 .path("John Smith")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
-        assertThat(response.getStatus(), is(200));
-
         JsonObject resultJson = response.readEntity(JsonObject.class);
+
+        assertThat(response.getStatus(), is(200));
+        assertThat(resultJson.getString("name"), is("John Smith"));
+        assertThat(resultJson.getJsonNumber("salary").doubleValue(), closeTo(46.45, 0.1));
+
 
         // Clean-up
         target
@@ -91,17 +100,21 @@ public class DoctorEndpointIT {
     }
 
     @Test
-    public void t02_getDoctors() {
+    public void t04_getAllDoctors() {
+        JsonObject doctorJson = Json.createObjectBuilder()
+                .add("name", "Hello there")
+                .add("salary", 575478.46)
+                .build();
+        target
+                .request()
+                .post(Entity.json(doctorJson));
 
-    }
+        Response response = target
+                .request(MediaType.APPLICATION_JSON)
+                .get();
 
-    @Test
-    public void t10_putDoctor() {
+        JsonArray resultJson = response.readEntity(JsonArray.class);
 
-    }
-
-    @Test
-    public void t20_deleteDoctor() {
-
+        assertThat(resultJson.isEmpty(), is(false));
     }
 }

@@ -1,25 +1,25 @@
 package at.htl.krankenhaus.model;
 
 import javax.persistence.Entity;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 public class GeneralTreatment extends Treatment {
-    public String TreatmentInformation;
+    private String treatmentInformation;
 
-    public GeneralTreatment(String name, Doctor doctor, Patient patient, String outcome, LocalDateTime startDate, LocalDateTime endDate, String treatmentInformation) {
+    public GeneralTreatment(String name, Doctor doctor, Patient patient, String outcome, LocalDate startDate, LocalDate endDate, String treatmentInformation) {
         super(name, doctor, patient, outcome, startDate, endDate);
-        TreatmentInformation = treatmentInformation;
+        this.treatmentInformation = treatmentInformation;
     }
 
     public GeneralTreatment() {
     }
 
     public String getTreatmentInformation() {
-        return TreatmentInformation;
+        return treatmentInformation;
     }
 
     public void setTreatmentInformation(String treatmentInformation) {
-        TreatmentInformation = treatmentInformation;
+        this.treatmentInformation = treatmentInformation;
     }
 }
