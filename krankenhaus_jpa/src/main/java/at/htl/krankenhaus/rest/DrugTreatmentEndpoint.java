@@ -28,8 +28,6 @@ public class DrugTreatmentEndpoint {
 
     @POST
     public Long putDrugTreatment(DrugTreatment drugTreatment) {
-        System.out.println("Drug Treatment");
-        System.out.println(drugTreatment);
         return initBean.putTreatment(drugTreatment);
     }
 

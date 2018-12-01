@@ -10,6 +10,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 
 @Startup
 @Singleton
@@ -23,6 +24,25 @@ public class InitBean {
 
     @PostConstruct
     private void init() {
+        /*
+        Doctor doc =
+                new Doctor("testDoctor", 0);
+        Patient patient =
+                new Patient("testSubject", 0);
+        DrugTreatment dt = new DrugTreatment(
+                "test",
+                doc,
+                patient,
+                "no outcome",
+                LocalDate.of(1999, 9, 9),
+                LocalDate.of(1999, 9, 19),
+                "testDrug",
+                3
+                );
+        em.persist(doc);
+        em.persist(patient);
+        em.persist(dt);
+        */
     }
 
     public Long putDoctor(Doctor doctor) {
@@ -45,6 +65,14 @@ public class InitBean {
     }
 
     public Long putTreatment(Treatment treatment) {
+        Doctor doctor = treatment.getDoctor();
+        Patient patient = treatment.getPatient();
+
+        em.merge(doctor);
+        em.persist(doctor);
+        em.merge(patient);
+        em.persist(patient);
+
         em.persist(treatment);
         return treatment.getId();
     }

@@ -44,12 +44,12 @@ public class KrankenhausEndpointsST {
         JsonObject drugTreatmentJson = Json.createObjectBuilder()
                 .add("name", "Anti-Alcoholism Treatment")
                 .add("drugName", "Antabuse")
-                .add("dosePerDay", "30 mg, twice daily")
-                //.add("doctor", doctorJson)
-                //.add("patient", patientJson)
+                .add("dosePerDay", 30)
+                .add("doctor", doctorJson)
+                .add("patient", patientJson)
                 .add("outcome", "Success, however patient gained 20 pounds.")
-                //.add("startDate", DateTimeFormatter.ISO_DATE.format(LocalDate.of(2018, 12, 4)))
-                //.add("endDate", DateTimeFormatter.ISO_DATE.format(LocalDate.of(2019, 1, 1)))
+                .add("startDate", DateTimeFormatter.ISO_DATE.format(LocalDate.of(2018, 12, 4)))
+                .add("endDate", DateTimeFormatter.ISO_DATE.format(LocalDate.of(2019, 1, 1)))
                 .build();
 
         JsonObject generalTreatmentJson = Json.createObjectBuilder()
@@ -81,7 +81,6 @@ public class KrankenhausEndpointsST {
                 .path("drugtreatment")
                 .request(MediaType.TEXT_PLAIN)
                 .post(Entity.json(drugTreatmentJson));
-        System.out.println(drugTreatmentPutResponse.getStatus());
         assertThat(drugTreatmentPutResponse.getStatus(), is(200));
         long drugTreatmentId = drugTreatmentPutResponse.readEntity(long.class);
 
@@ -95,6 +94,7 @@ public class KrankenhausEndpointsST {
         // Get
         // Patient
         Response patientGetResponse = target
+                .path("patient")
                 .path(patientId + "")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
@@ -106,6 +106,7 @@ public class KrankenhausEndpointsST {
 
         // Doctor
         Response doctorGetResponse = target
+                .path("doctor")
                 .path(doctorId + "")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
@@ -117,6 +118,7 @@ public class KrankenhausEndpointsST {
 
         // Drug Treatment
         Response drugTreatmentGetResponse = target
+                .path("drugtreatment")
                 .path(drugTreatmentId + "")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
@@ -125,12 +127,13 @@ public class KrankenhausEndpointsST {
         assertThat(drugTreatmentGetResponse.getStatus(), is(200));
         assertThat(drugTreatmentResultJson.getString("name"), is("Anti-Alcoholism Treatment"));
         assertThat(drugTreatmentResultJson.getString("drugName"), is("Antabuse"));
-        assertThat(drugTreatmentResultJson.getJsonObject("patient").getJsonString("name"), is("Patient"));
+        assertThat(drugTreatmentResultJson.getJsonObject("patient").getJsonString("name").getString(), is("Patient"));
         assertThat(LocalDate.parse(drugTreatmentResultJson.getJsonString("endDate").getString(), DateTimeFormatter.ISO_DATE),
                 is(LocalDate.of(2019, 1, 1)));
 
         // General Treatment
         Response generalTreatmentGetResponse = target
+                .path("generaltreatment")
                 .path(generalTreatmentId + "")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
@@ -139,24 +142,28 @@ public class KrankenhausEndpointsST {
         assertThat(generalTreatmentGetResponse.getStatus(), is(200));
         assertThat(generalTreatmentResultJson.getString("name"), is("Psychological Counseling"));
         assertThat(generalTreatmentResultJson.getString("treatmentInformation"), is("Post Anti-Alcoholism Treatment Treatment"));
-        assertThat(generalTreatmentResultJson.getJsonObject("patient").getJsonString("name"), is("Patient"));
+        assertThat(generalTreatmentResultJson.getJsonObject("patient").getJsonString("name").getString(), is("Patient"));
         assertThat(LocalDate.parse(generalTreatmentResultJson.getJsonString("endDate").getString(), DateTimeFormatter.ISO_DATE),
                 is(LocalDate.of(2019, 5, 1)));
 
         // Cleanup
         target
+                .path("patient")
                 .path(patientId + "")
                 .request()
                 .delete();
         target
+                .path("doctor")
                 .path(doctorId + "")
                 .request()
                 .delete();
         target
+                .path("drugtreatment")
                 .path(drugTreatmentId + "")
                 .request()
                 .delete();
         target
+                .path("generaltreatment")
                 .path(generalTreatmentId + "")
                 .request()
                 .delete();

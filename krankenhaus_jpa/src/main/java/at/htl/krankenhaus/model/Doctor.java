@@ -13,7 +13,7 @@ public class Doctor {
     private String name;
     private double salary;
 
-    public Doctor(String name, String occupation, double salary) {
+    public Doctor(String name, double salary) {
         this.name = name;
         this.salary = salary;
     }
