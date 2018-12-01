@@ -1,4 +1,14 @@
-# Stefan Brandmair
+# Stefan Brandmair - Krankenhaus
+
+
+
+
+
+
+
+# Notes for myself
+
+
 
 ## Starting derby
 
@@ -9,21 +19,15 @@ cd db
 D:\opt\derby\bin\startNetworkServer -noSecurityManager
 ```
 
-
-
 ## Starting h2
 
-
-
 ```
-mkdir db
-cd db
-
-???
+Seems to not be required?
 ```
 
 
 
+# Angabe
 
 Übungsbeispiel mit individueller Aufgabenstellung zum Thema JPA
 
