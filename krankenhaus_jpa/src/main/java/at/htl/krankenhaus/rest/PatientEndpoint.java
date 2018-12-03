@@ -3,16 +3,15 @@ package at.htl.krankenhaus.rest;
 import at.htl.krankenhaus.business.InitBean;
 import at.htl.krankenhaus.model.Patient;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.*;
 
 @Path("patient")
+@Stateless
 public class PatientEndpoint {
-    @Inject
-    InitBean initBean;
-
     @PersistenceContext
     private EntityManager em;
     @GET
@@ -23,7 +22,8 @@ public class PatientEndpoint {
 
     @POST
     public Long putPatient(Patient patient) {
-        return initBean.putPatient(patient);
+        em.persist(patient);
+        return patient.getId();
     }
 
     @DELETE
@@ -31,7 +31,7 @@ public class PatientEndpoint {
     public void deletePatient(@PathParam("id") long id) {
         Patient p = em.find(Patient.class, id);
         if(p != null) {
-            initBean.removePatient(p);
+            em.remove(em.contains(p) ? p : em.merge(p));
         }
     }
 }

@@ -4,6 +4,7 @@ import at.htl.krankenhaus.business.InitBean;
 import at.htl.krankenhaus.model.Doctor;
 import at.htl.krankenhaus.model.DrugTreatment;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,10 +12,8 @@ import javax.ws.rs.*;
 import java.util.List;
 
 @Path("doctor")
+@Stateless
 public class DoctorEndpoint {
-
-    @Inject InitBean initBean;
-
     @PersistenceContext
     EntityManager em;
 
@@ -37,7 +36,8 @@ public class DoctorEndpoint {
 
     @POST
     public Long putDoctor(Doctor doctor) {
-        return initBean.putDoctor(doctor);
+        em.persist(doctor);
+        return doctor.getId();
     }
 
     @DELETE
@@ -45,7 +45,7 @@ public class DoctorEndpoint {
     public void deleteDoctor(@PathParam("id") long id) {
         Doctor d = em.find(Doctor.class, id);
         if(d != null) {
-            initBean.removeDoctor(d);
+            em.remove(em.contains(d) ? d : em.merge(d));
         }
     }
 }

@@ -1,19 +1,20 @@
 package at.htl.krankenhaus.rest;
 
 import at.htl.krankenhaus.business.InitBean;
+import at.htl.krankenhaus.model.Doctor;
 import at.htl.krankenhaus.model.DrugTreatment;
 import at.htl.krankenhaus.model.GeneralTreatment;
+import at.htl.krankenhaus.model.Patient;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.*;
 
 @Path("generaltreatment")
+@Stateless
 public class GeneralTreatmentEndpoint {
-    @Inject
-    InitBean initBean;
-
     @PersistenceContext
     EntityManager em;
 
@@ -24,15 +25,24 @@ public class GeneralTreatmentEndpoint {
     }
 
     @POST
-    public Long putGeneralTreatment(GeneralTreatment generalTreatment) {
-        return initBean.putTreatment(generalTreatment);
+    public Long putGeneralTreatment(GeneralTreatment treatment) {
+        Doctor doctor = treatment.getDoctor();
+        Patient patient = treatment.getPatient();
+
+        em.merge(doctor);
+        em.persist(doctor);
+        em.merge(patient);
+        em.persist(patient);
+
+        em.persist(treatment);
+        return treatment.getId();
     }
 
     @DELETE@Path("{id}")
     public void deleteGeneralTreatment(@PathParam("id") long id) {
         GeneralTreatment t = em.find(GeneralTreatment.class, id);
         if(t != null) {
-            initBean.removeTreatment(t);
+            em.remove(em.contains(t) ? t : em.merge(t));
         }
     }
 }

@@ -44,7 +44,7 @@ public class InitBean {
         em.persist(dt);
         */
     }
-
+/*
     public Long putDoctor(Doctor doctor) {
         em.persist(doctor);
 
@@ -78,5 +78,5 @@ public class InitBean {
     }
 
     public void removeTreatment(Treatment t) {em.remove(em.contains(t) ? t : em.merge(t));
-    }
+    }*/
 }

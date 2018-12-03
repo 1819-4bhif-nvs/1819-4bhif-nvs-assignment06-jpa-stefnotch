@@ -5,30 +5,46 @@ import at.htl.krankenhaus.model.Doctor;
 import at.htl.krankenhaus.model.DrugTreatment;
 import at.htl.krankenhaus.model.Patient;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("drugtreatment")
+@Stateless
 public class DrugTreatmentEndpoint {
-
-    @Inject
-    InitBean initBean;
-
     @PersistenceContext
     EntityManager em;
 
     @GET
     @Path("{id}")
+    //@Produces(MediaType.APPLICATION_JSON)
     public DrugTreatment getDrugTreatment(@PathParam("id") long id) {
-        return em.find(DrugTreatment.class, id);
+        DrugTreatment drugTreatment = em.find(DrugTreatment.class, id);
+/*
+        return Response
+                .ok()
+                .entity(drugTreatment)
+                .build();*/
+        return drugTreatment;
     }
 
 
     @POST
-    public Long putDrugTreatment(DrugTreatment drugTreatment) {
-        return initBean.putTreatment(drugTreatment);
+    public Long putDrugTreatment(DrugTreatment treatment) {
+        Doctor doctor = treatment.getDoctor();
+        Patient patient = treatment.getPatient();
+
+        em.merge(doctor);
+        em.persist(doctor);
+        em.merge(patient);
+        em.persist(patient);
+
+        em.persist(treatment);
+        return treatment.getId();
     }
 
     @DELETE
@@ -36,7 +52,7 @@ public class DrugTreatmentEndpoint {
     public void deleteDrugTreatment(@PathParam("id") long id) {
         DrugTreatment t = em.find(DrugTreatment.class, id);
         if(t != null) {
-            initBean.removeTreatment(t);
+            em.remove(em.contains(t) ? t : em.merge(t));
         }
     }
 }
