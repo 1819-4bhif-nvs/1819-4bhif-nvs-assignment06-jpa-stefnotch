@@ -1,6 +1,16 @@
 # Stefan Brandmair - Krankenhaus
 
+Dieses Programm befasst sich mit der Verwaltung eines Krankenhauses. Derzeit befasst es sich nur mit Patienten (Patient), Doktoren (Doctor) und Behandlungen (Treatment)
 
+### Klassendiagramm
+
+![CLD](C:\Users\Stefnotch\Documents\GitHub\School\1819-4bhif-nvs-assignment06-jpa-stefnotch\krankenhaus_jpa\CLD.png)
+
+
+
+### Entitaetendiagramm
+
+![ERD](C:\Users\Stefnotch\Documents\GitHub\School\1819-4bhif-nvs-assignment06-jpa-stefnotch\krankenhaus_jpa\ERD.png)
 
 
 
