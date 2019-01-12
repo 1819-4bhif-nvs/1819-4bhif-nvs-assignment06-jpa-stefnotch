@@ -12,6 +12,9 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -29,7 +32,7 @@ public class PatientEndpointIT {
     public void t01_simplePatientTest() {
         JsonObject patientJson = Json.createObjectBuilder()
                 .add("name", "Sue Sunshine")
-                .add("salary", 42578)
+                .add("birthdate", DateTimeFormatter.ISO_DATE.format(LocalDate.of(1999, 2, 15)))
                 .build();
         // Put
         Response putResponse = target
@@ -46,7 +49,9 @@ public class PatientEndpointIT {
         JsonObject resultJson = response.readEntity(JsonObject.class);
         assertThat(response.getStatus(), is(200));
         assertThat(resultJson.getString("name"), is("Sue Sunshine"));
-        assertThat(resultJson.getJsonNumber("salary").intValue(), is(42578));
+
+        assertThat(LocalDate.parse(resultJson.getJsonString("birthdate").getString(), DateTimeFormatter.ISO_DATE),
+                is(LocalDate.of(1999, 2, 15)));
 
         // Delete
         Response deleteResponse = target

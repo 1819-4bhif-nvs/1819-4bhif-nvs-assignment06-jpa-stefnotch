@@ -2,7 +2,11 @@ package at.htl.krankenhaus.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+// Often, multiple diagnoses are needed for a certain treatment (X-Ray, MRT, ..)
+// One diagnose can result in multiple treatments
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class Treatment {
@@ -18,6 +22,9 @@ public abstract class Treatment {
 
     private LocalDate startDate;
     private LocalDate endDate;
+
+    @ManyToMany//(mappedBy = "treatments")
+    private List<Diagnosis> diagnoses = new ArrayList<>();
 
     public Treatment() {
     }
@@ -81,5 +88,13 @@ public abstract class Treatment {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public List<Diagnosis> getDiagnoses() {
+        return diagnoses;
+    }
+
+    public void setDiagnoses(List<Diagnosis> diagnoses) {
+        this.diagnoses = diagnoses;
     }
 }

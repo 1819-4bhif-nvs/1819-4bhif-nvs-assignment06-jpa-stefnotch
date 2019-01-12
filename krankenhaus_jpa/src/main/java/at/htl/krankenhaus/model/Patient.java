@@ -1,9 +1,10 @@
 package at.htl.krankenhaus.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Patient {
@@ -11,14 +12,18 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private double salary;
+    private LocalDate birthdate;
+
+    @JsonbTransient
+    @OneToMany(mappedBy = "patient")
+    private List<Treatment> treatments = new ArrayList<>();
 
     public Patient() {
     }
 
-    public Patient(String name, double salary) {
+    public Patient(String name, LocalDate birthdate) {
         this.name = name;
-        this.salary = salary;
+        this.birthdate = birthdate;
     }
 
     public Long getId() {
@@ -34,11 +39,20 @@ public class Patient {
         this.name = name;
     }
 
-    public double getSalary() {
-        return salary;
+
+    public List<Treatment> getTreatments() {
+        return treatments;
     }
 
-    public void setSalary(double salary) {
-        this.salary = salary;
+    public void setTreatments(List<Treatment> treatments) {
+        this.treatments = treatments;
+    }
+
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
     }
 }

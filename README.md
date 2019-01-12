@@ -1,6 +1,16 @@
 # Stefan Brandmair - Krankenhaus
 
-Dieses Programm befasst sich mit der Verwaltung eines Krankenhauses. Derzeit befasst es sich nur mit Patienten (Patient), Doktoren (Doctor) und Behandlungen (Treatment)
+Dieses Programm befasst sich mit der Verwaltung eines Krankenhauses. Derzeit befasst es sich nur mit Patienten (Patient), Doktoren (Doctor), Diagnosen (Diagnosis) und Behandlungen (Treatment)
+
+Die assoziative Tabelle ordnet einer Behandlung die Diagnosen, welche zu der Behandlung geführt haben zu. Eine Diagnose kann zu mehreren, verschiedenen Behandlung führen (z.B. Psychotherapie und Tabletten). Eine Behandlung kann mehrere Diagnosen haben (z.B. MRT und X-Ray)
+
+
+
+Patienten und Doktoren sind **Stammdaten**
+
+Diagnosen und Behandlungen sind **Bewegungsdaten**
+
+Die assoziative Tabelle zwischen den Diagnosen und Behandlungen gehört auch zu den Bewegungsdaten. 
 
 ### Klassendiagramm
 
@@ -13,39 +23,3 @@ Dieses Programm befasst sich mit der Verwaltung eines Krankenhauses. Derzeit bef
 ![ERD](./krankenhaus_jpa/ERD.png)
 
 
-
-
-
-# Notes for myself
-
-
-
-## Starting derby
-
-```
-mkdir db
-cd db
-
-D:\opt\derby\bin\startNetworkServer -noSecurityManager
-```
-
-## Starting h2
-
-```
-Seems to not be required?
-```
-
-
-
-# Angabe
-
-Übungsbeispiel mit individueller Aufgabenstellung zum Thema JPA
-
-# Aufgabenstellung
-
-- Jakarta EE Applikation
-- Erstellen Sie (oder erweitern Sie) Ihr individuelles Datenmodell mit mindestens zwei abgeleiteten Klassen und insgesamt ca. fünf Tabellen.
-- Erstellen Sie eine CRUD-Applikation (restful services) für die vererbten Klassen. Weiters ausgehend von Ihrem individuellem Thema ev. noch weitere notwendige Endpunkte.
-- Ein Datum muss in Ihrem REST-Endpoint
-- Verwenden Sie eine DerbyDb sowie eine H2
-- Erstellen Systemtests auf Basis JavaSE.

@@ -33,7 +33,7 @@ public class KrankenhausEndpointsST {
         // JSON Objects
         JsonObject patientJson = Json.createObjectBuilder()
                 .add("name", "Patient")
-                .add("salary", 666)
+                .add("birthdate", DateTimeFormatter.ISO_DATE.format(LocalDate.of(1999, 2, 15)))
                 .build();
 
         JsonObject doctorJson = Json.createObjectBuilder()
@@ -102,7 +102,9 @@ public class KrankenhausEndpointsST {
 
         assertThat(patientGetResponse.getStatus(), is(200));
         assertThat(patientResultJson.getString("name"), is("Patient"));
-        assertThat(patientResultJson.getJsonNumber("salary").intValue(), is(666));
+        assertThat(LocalDate.parse(patientResultJson.getJsonString("birthdate").getString(), DateTimeFormatter.ISO_DATE),
+                is(LocalDate.of(1999, 2, 15)));
+
 
         // Doctor
         Response doctorGetResponse = target

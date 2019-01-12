@@ -5,8 +5,8 @@
              version="2.2">
 
     <persistence-unit name="dbPU">
-        <!--<jta-data-source>java:jboss/datasources/DbDS</jta-data-source>-->
-        <jta-data-source>java:/h2DS</jta-data-source>
+        <jta-data-source>java:jboss/datasources/dbds</jta-data-source>
+        <!--<jta-data-source>java:/h2DS</jta-data-source>-->
         <properties>
             <property name="javax.persistence.schema-generation.database.action"
                       value="drop-and-create"></property>
