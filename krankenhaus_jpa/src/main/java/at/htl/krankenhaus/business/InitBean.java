@@ -44,39 +44,4 @@ public class InitBean {
         em.persist(dt);
         */
     }
-/*
-    public Long putDoctor(Doctor doctor) {
-        em.persist(doctor);
-
-        return doctor.getId();
-    }
-
-    public void removeDoctor(Doctor d) {
-        em.remove(em.contains(d) ? d : em.merge(d));
-    }
-
-    public Long putPatient(Patient patient) {
-        em.persist(patient);
-        return patient.getId();
-    }
-
-    public void removePatient(Patient p) {
-        em.remove(em.contains(p) ? p : em.merge(p));
-    }
-
-    public Long putTreatment(Treatment treatment) {
-        Doctor doctor = treatment.getDoctor();
-        Patient patient = treatment.getPatient();
-
-        em.merge(doctor);
-        em.persist(doctor);
-        em.merge(patient);
-        em.persist(patient);
-
-        em.persist(treatment);
-        return treatment.getId();
-    }
-
-    public void removeTreatment(Treatment t) {em.remove(em.contains(t) ? t : em.merge(t));
-    }*/
 }
