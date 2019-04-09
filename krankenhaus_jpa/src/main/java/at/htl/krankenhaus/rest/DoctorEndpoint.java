@@ -3,15 +3,20 @@ package at.htl.krankenhaus.rest;
 import at.htl.krankenhaus.business.InitBean;
 import at.htl.krankenhaus.model.Doctor;
 import at.htl.krankenhaus.model.DrugTreatment;
+import io.swagger.annotations.Api;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("doctor")
+@Produces({MediaType.APPLICATION_JSON})
+@Consumes({MediaType.APPLICATION_JSON})
+@Api(value = "Doctor") // Impurrtant
 @Stateless
 public class DoctorEndpoint {
     @PersistenceContext

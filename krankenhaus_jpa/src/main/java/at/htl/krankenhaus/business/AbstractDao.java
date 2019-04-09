@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Stateless
-public class AbstractDao<T> {
+public abstract class AbstractDao<T> {
 
     @PersistenceContext
     private EntityManager em;

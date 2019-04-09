@@ -5,14 +5,19 @@ import at.htl.krankenhaus.model.Doctor;
 import at.htl.krankenhaus.model.DrugTreatment;
 import at.htl.krankenhaus.model.GeneralTreatment;
 import at.htl.krankenhaus.model.Patient;
+import io.swagger.annotations.Api;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 @Path("generaltreatment")
+@Produces({MediaType.APPLICATION_JSON})
+@Consumes({MediaType.APPLICATION_JSON})
+@Api(value = "General Treatment (including Homeopathy)") // *swag*
 @Stateless
 public class GeneralTreatmentEndpoint {
     @PersistenceContext

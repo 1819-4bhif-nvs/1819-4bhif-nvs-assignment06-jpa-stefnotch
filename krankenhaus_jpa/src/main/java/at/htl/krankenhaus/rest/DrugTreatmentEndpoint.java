@@ -4,6 +4,7 @@ import at.htl.krankenhaus.business.InitBean;
 import at.htl.krankenhaus.model.Doctor;
 import at.htl.krankenhaus.model.DrugTreatment;
 import at.htl.krankenhaus.model.Patient;
+import io.swagger.annotations.Api;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -14,6 +15,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("drugtreatment")
+@Produces({MediaType.APPLICATION_JSON})
+@Consumes({MediaType.APPLICATION_JSON})
+@Api(value = "Drug Treatment")
 @Stateless
 public class DrugTreatmentEndpoint {
     @PersistenceContext
