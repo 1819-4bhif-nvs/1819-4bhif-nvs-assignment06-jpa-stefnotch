@@ -1,9 +1,14 @@
 package at.htl.krankenhaus.model;
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import java.time.LocalDate;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "DrugTreatment.findAll", query = "select d from DrugTreatment d")
+})
 public class DrugTreatment extends Treatment {
     private String drugName;
     private double dosePerDay;

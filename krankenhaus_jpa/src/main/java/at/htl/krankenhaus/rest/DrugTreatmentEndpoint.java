@@ -19,6 +19,8 @@ public class DrugTreatmentEndpoint {
     @PersistenceContext
     EntityManager em;
 
+
+    // Improve it liek dis: https://github.com/1819-4bhif-nvs/1819-4bhif-nvs-assignment06-jpa-ErikMayrhofer/blob/master/Kursverwaltung/src/main/java/at/htl/kursverwaltung/rest/AbstractEndpoint.java
     @GET
     @Path("{id}")
     //@Produces(MediaType.APPLICATION_JSON)

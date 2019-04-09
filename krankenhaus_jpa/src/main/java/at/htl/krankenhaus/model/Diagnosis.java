@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Diagnosis.findAll", query = "select d from Diagnosis d")
+})
 public class Diagnosis {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

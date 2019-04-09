@@ -8,6 +8,9 @@ import java.util.List;
 // Often, multiple diagnoses are needed for a certain treatment (X-Ray, MRT, ..)
 // One diagnose can result in multiple treatments
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Treatment.findAll", query = "select t from Treatment t")
+})
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class Treatment {
     @Id
